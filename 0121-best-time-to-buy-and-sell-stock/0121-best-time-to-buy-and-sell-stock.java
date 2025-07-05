@@ -7,12 +7,12 @@ class Solution {
 
         int[] minarr = new int[prices.length];
 
-        for(int i=0; i<minarr.length; i++){
-            min = Math.min(min, prices[i]);
-            minarr[i] = min;
+        // for(int i=0; i<minarr.length; i++){
+        //     min = Math.min(min, prices[i]);
+        //     minarr[i] = min;
             
-            //System.out.printf("%d ", minarr[i]);
-        }
+        //     //System.out.printf("%d ", minarr[i]);
+        // }
         // [7,1,1,1,1,1]
         //System.out.printf("\n");
 
@@ -28,8 +28,9 @@ class Solution {
 
         int profit = 0;
         for(int i=0; i<minarr.length; i++){
+            min = Math.min(min, prices[i]);
             //System.out.printf("profit:%d,  max[%d] min[%d]\n", profit, maxarr[i], minarr[i]);
-            profit = Math.max(profit, maxarr[i]-minarr[i]);
+            profit = Math.max(profit, maxarr[i]-min);
         }
 
 

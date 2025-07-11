@@ -11,21 +11,21 @@
  */
 public class Solution {
     public boolean hasCycle(ListNode head) {
-        if(head==null) return false;
-        if(head.next==null) return false;
 
-        return checkCycle(head, head.next);
-    }
+        ListNode tmp = head;
+        // System.out.println("before/ head:"+head.val+", tmp:"+tmp.val);
+        while(head!=null && head.next!=null){
+            head = head.next.next;
+            tmp = tmp.next;
+            // System.out.println("head:"+head.val+", tmp:"+tmp.val);
 
-    boolean checkCycle(ListNode node1, ListNode node2){
-        if(node2==null) return false;
-
-        if(node1 == node2){
-            return true;
-        } else {
-            if(node2.next==null) return false;
-            return checkCycle(node1.next, node2.next.next);
+            if(head==tmp){
+                // System.out.println("break/");
+                return true;
+            }
         }
         
+        // System.out.println("final/ head:"+head.val+", tmp:"+tmp.val);
+        return false;
     }
 }

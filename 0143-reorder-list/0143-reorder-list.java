@@ -10,23 +10,62 @@
  */
 class Solution {
     public void reorderList(ListNode head) { //1
-    
-        if(head==null) return;
-        
-        ListNode next = head.next; //2
-        if(next==null) return;
 
-        ListNode last = next;
-        while(last.next!=null){ //4
-            if(last.next.next==null){ //-
-                head.next = last.next; //1-4
-                last.next.next = next; //4-2
-                last.next = null;
+        if(head==null || head.next==null || head.next.next==null) return;
+
+        // find middle
+
+        ListNode slow = head;
+        ListNode fast = head;
+
+        while(fast.next!=null && fast.next.next!=null){
+            slow = slow.next;
+            fast = fast.next.next;
+        }        
+
+        // reverse
+
+        slow = slow.next;
+        ListNode prev = null;
+        ListNode next = slow.next;
+
+        while(slow!=null){
+            next = slow.next;
+            
+            slow.next = prev;
+            prev = slow;
+            slow = next;
+        }
+
+        // merge
+
+        ListNode headTmp = head;
+        ListNode prevTmp = prev;
+        while(head!=null){
+            //system.out.printf("\n head(%s,%s) ", head.val, headTmp.val);
+
+            headTmp = head.next;
+            head.next = prev;
+            
+
+            if(prev!=null) {
+                //system.out.printf(" prev(%s,%s) ", prev.val, prevTmp.val);
+                prevTmp = prev.next; 
+                prev.next = headTmp;
+                prev = prevTmp;
+            } else{
                 break;
             }
-            last = last.next;
-        }        
-        reorderList(head.next.next);
+
+            head = headTmp;
+
+            //system.out.printf("\n--> head=%d, prev=%d\n", head==null?null:head.val, prev==null?null:prev.val);
+        }
+
+        
+        
+      
         return;
     }
+
 }

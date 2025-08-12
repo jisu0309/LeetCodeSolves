@@ -1,23 +1,29 @@
 class Solution {
     public int minEatingSpeed(int[] piles, int h) {
-        int left = 1, right = 1000000000 + 1;
-        while (left < right) {
-            int mid = left + (right - left) / 2;
-            if (f(piles, mid) <= h) {
-                right = mid;
-            } else {
-                left = mid + 1;
+        int max = 0;
+        for(int p:piles){
+            max = Math.max(max, p);
+        }
+        int min = 1;
+        int ret = max/2;
+
+        while(max>=min){
+            int sum = 0;
+            for(int p:piles){
+                sum += Math.ceil((double) p/ret);
+                // System.out.printf("%d+", sum);
             }
+            
+            // System.out.printf("\n%d-%d-%d -> %d\n\n", min, ret, max, sum);
+
+            if(sum>h) {
+                min = ret+1;
+            } else {
+                max = ret-1;
+            }
+            ret = min+(max-min)/2;
         }
-        return left;
-    }
-    
-    private int f(int[] piles, int speed) {
-        int hours = 0;
-        for (int i = 0; i < piles.length; i++) {
-            hours += piles[i] / speed;
-            if (piles[i] % speed > 0) hours++;
-        }
-        return hours;
+
+        return ret;
     }
 }

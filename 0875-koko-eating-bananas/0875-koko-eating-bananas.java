@@ -8,9 +8,10 @@ class Solution {
         int ret = max/2;
 
         while(max>=min){
-            int sum = 0;
+            long sum = 0;
             for(int p:piles){
-                sum += Math.ceil((double) p/ret);
+                // sum += Math.ceil((double) p/ret);
+                sum += (p + ret - 1)/ret;
                 // System.out.printf("%d+", sum);
             }
             
